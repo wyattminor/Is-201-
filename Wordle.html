@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mini Wordle Game</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: #f0f0f0;
+    }
+    a.back-link {
+      display: inline-block;
+      margin: 20px;
+      text-decoration: none;
+      font-weight: bold;
+      color: #333;
+    }
+    #game {
+      margin: 0 auto;
+      max-width: 400px;
+    }
+    .row {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 5px;
+    }
+    .tile {
+      width: 50px;
+      height: 50px;
+      margin: 2px;
+      border: 2px solid #ccc;
+      line-height: 50px;
+      font-size: 24px;
+      background-color: white;
+      text-transform: uppercase;
+    }
+    .correct {
+      background-color: green;
+      color: white;
+      border: none;
+    }
+    .present {
+      background-color: gold;
+      color: white;
+      border: none;
+    }
+    .absent {
+      background-color: #ccc;
+      color: white;
+      border: none;
+    }
+    #keyboard {
+      margin-top: 20px;
+    }
+    .key {
+      display: inline-block;
+      width: 30px;
+      margin: 2px;
+      padding: 5px;
+      border: 1px solid #888;
+      background: white;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<a href="World Travel.html" class="back-link">&larr; Back to previous site</a>
+
+<h2>Wordle Game</h2>
+<div id="game"></div>
+<div id="keyboard"></div>
+<p id="message"></p>
+
+<script>
+  const WORD = "GRAPE"; // Change this word to any 5-letter word
+  let currentRow = 0;
+  let currentGuess = "";
+  const maxRows = 6;
+
+  const game = document.getElementById("game");
+  const keyboard = document.getElementById("keyboard");
+  const message = document.getElementById("message");
+
+  const keys = "QWERTYUIOPASDFGHJKLZXCVBNM";
+
+  // Build the game board
+  for (let i = 0; i < maxRows; i++) {
+    const row = document.createElement("div");
+    row.classList.add("row");
+    for (let j = 0; j < 5; j++) {
+      const tile = document.createElement("div");
+      tile.classList.add("tile");
+      tile.setAttribute("id", `tile-${i}-${j}`);
+      row.appendChild(tile);
+    }
+    game.appendChild(row);
+  }
+
+  // Build the keyboard
+  keys.split('').forEach(letter => {
+    const key = document.createElement("div");
+    key.classList.add("key");
+    key.textContent = letter;
+    key.onclick = () => addLetter(letter);
+    keyboard.appendChild(key);
+  });
+
+  const enterKey = document.createElement("div");
+  enterKey.classList.add("key");
+  enterKey.textContent = "⏎";
+  enterKey.onclick = submitGuess;
+  keyboard.appendChild(enterKey);
+
+  const delKey = document.createElement("div");
+  delKey.classList.add("key");
+  delKey.textContent = "⌫";
+  delKey.onclick = deleteLetter;
+  keyboard.appendChild(delKey);
+
+  function addLetter(letter) {
+    if (currentGuess.length < 5) {
+      const tile = document.getElementById(`tile-${currentRow}-${currentGuess.length}`);
+      tile.textContent = letter;
+      currentGuess += letter;
+    }
+  }
+
+  function deleteLetter() {
+    if (currentGuess.length > 0) {
+      currentGuess = currentGuess.slice(0, -1);
+      const tile = document.getElementById(`tile-${currentRow}-${currentGuess.length}`);
+      tile.textContent = "";
+    }
+  }
+
+  function submitGuess() {
+    if (currentGuess.length !== 5) {
+      message.textContent = "Guess must be 5 letters!";
+      return;
+    }
+
+    for (let i = 0; i < 5; i++) {
+      const tile = document.getElementById(`tile-${currentRow}-${i}`);
+      const guessChar = currentGuess[i];
+      const correctChar = WORD[i];
+
+      if (guessChar === correctChar) {
+        tile.classList.add("correct");
+      } else if (WORD.includes(guessChar)) {
+        tile.classList.add("present");
+      } else {
+        tile.classList.add("absent");
+      }
+    }
+
+    if (currentGuess === WORD) {
+      message.textContent = "🎉 You guessed it!";
+      disableKeyboard();
+    } else {
+      currentRow++;
+      currentGuess = "";
+      if (currentRow === maxRows) {
+        message.textContent = `❌ Out of tries! The word was "${WORD}"`;
+        disableKeyboard();
+      }
+    }
+  }
+
+  function disableKeyboard() {
+    document.querySelectorAll(".key").forEach(key => key.onclick = null);
+  }
+
+  document.addEventListener("keydown", e => {
+    const key = e.key.toUpperCase();
+    if (key === "ENTER") submitGuess();
+    else if (key === "BACKSPACE") deleteLetter();
+    else if (/^[A-Z]$/.test(key)) addLetter(key);
+  });
+</script>
+
+</body>
+</html>

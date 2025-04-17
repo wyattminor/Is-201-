@@ -1,0 +1,91 @@
+/* Custom Stylesheet for World Travel Page */
+
+/* 1. Base styles for the entire page */
+body {
+    background: linear-gradient(to bottom right, whitesmoke, whitesmoke);
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+/* 2. Header div styling */
+.header {
+    /* background-image: url('https://images.unsplash.com/photo-1502920917128-1aa500764b8c'); */
+    background-size: cover;
+    background-position: center;
+    color: black;
+    text-align: center;
+    padding: 80px 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+/* 3. Video section styling */
+.video-section {
+    background-color: whitesmoke;
+    margin: 40px auto;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    max-width: 800px;
+}
+
+/* 4. Lists and content blocks */
+.lists {
+    background-color: #fafafa;
+    padding: 25px;
+    margin: 20px auto;
+    border-left: 5px solid whitesmoke;
+    max-width: 700px;
+    border-radius: 8px;
+}
+
+/* 5. Image section styling */
+.image-section {
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 800px;
+    text-align: center;
+}
+
+.image-section img {
+    border-radius: 10px;
+    max-width: 100%;
+    height: auto;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+/* 6. Anchor nav styling */
+.anchor-nav {
+    color: #333;
+    background-color:tan;
+    text-align: center;
+    padding: 15px;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+/* 7. Navigation bar styling */
+nav {
+    background-color: tan;
+    padding: 10px;
+    text-align: right;
+}
+
+nav a {
+    color: black;
+    text-decoration: none;
+    margin-right: 20px;
+    font-weight: bold;
+}
+
+/* 8. Tableau container styling */
+.tableau-container {
+    background-color: tan;
+    margin: 30px auto;
+    padding: 30px;
+    border-radius: 12px;
+    max-width: 1000px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+}
